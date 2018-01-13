@@ -7,6 +7,7 @@ Keep your Cloud9 workspaces running without hot workspaces.
 ```
 # Through npm
 npm install -g caffeine9
+
 # Through Yarn
 yarn add global caffeine9
 ```
@@ -30,7 +31,7 @@ Options:
 ### Attempts to wake up workspace `john/hello-world`
 
 ```
-cf9 --user john --workspace hello-world
+$ cf9 --user john --workspace hello-world
 ```
 
 You can run this manually to wake up your workspaces, but I would highly recommend running caffeine9 with cronjob at an interval of at least 30 minutes. Free tier workspaces are shut down after two hours of inactivity, so you'll need to send a wakeup signal before then. More information on that here: https://docs.c9.io/docs/inactive-workspaces
