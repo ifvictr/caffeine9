@@ -41,8 +41,5 @@ const spinner = ora({
             spinner.fail("Couldn't seem to find that workspace.");
             break;
     }
-    // Non-success, exit with a non-zero code
-    if(result !== status.SUCCESS) {
-        process.exit(1);
-    }
+    process.exit(result);
 })();

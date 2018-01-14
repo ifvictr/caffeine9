@@ -34,7 +34,7 @@ Options:
 $ cf9 --user john --workspace hello-world
 ```
 
-You can run this manually to wake up your workspaces, but I would highly recommend running caffeine9 with cronjob at an interval of at least 30 minutes. Free tier workspaces are shut down after two hours of inactivity, so you'll need to send a wakeup signal before then. More information on that here: https://docs.c9.io/docs/inactive-workspaces
+You can run this manually to wake up your workspaces, but I would highly recommend using cron to run it in intervals of at least once an hour. Non-hot workspaces are shut down after two hours of inactivity, so you'll need to send a wakeup signal before then. More information on that here: https://docs.c9.io/docs/inactive-workspaces
 
 ## Disclaimer
 
