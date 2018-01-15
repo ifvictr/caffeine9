@@ -1,6 +1,6 @@
 {
     "name": "caffeine9",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Keep your Cloud9 workspaces running without hot workspaces.",
     "main": "index.js",
     "bin": {
