@@ -11,8 +11,7 @@ program
     .option("-w, --workspace [value]", "The target workspace's name")
     .parse(process.argv);
 
-const user = program.user;
-const workspace = program.workspace;
+const {user, workspace} = program;
 if(!user || !workspace) {
     console.log("Both a user and workspace name need to be specified.");
     process.exit(1);
