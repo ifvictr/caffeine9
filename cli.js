@@ -31,7 +31,7 @@ const spinner = ora({
             spinner.succeed(`Successfully woke up workspace ${user}/${workspace}!`);
             break;
         case status.CREDENTIALS_NOT_FOUND:
-            spinner.fail("Couldn't find Cloud9 credentials. Did you add `C9_EMAIL` and `C9_PASSWORD` to your environment yet?");
+            spinner.fail("Couldn't find Cloud9 credentials. Did you set up the `C9_EMAIL` and `C9_PASSWORD` environment variables yet?");
             break;
         case status.CREDENTIALS_INVALID:
             spinner.fail("Supplied credentials were invalid.");

@@ -8,9 +8,9 @@ module.exports.status = {
 };
 
 module.exports.wake = async (user, workspace) => {
-    const c9Email = process.env.C9_EMAIL;
-    const c9Password = process.env.C9_PASSWORD;
-    if(!c9Email || !c9Password) {
+    const email = process.env.C9_EMAIL;
+    const password = process.env.C9_PASSWORD;
+    if(!email || !password) {
         return this.status.CREDENTIALS_NOT_FOUND;
     }
 
@@ -22,8 +22,8 @@ module.exports.wake = async (user, workspace) => {
     // Attempting to access the IDE will redirect to a login page
     await page.goto(`https://ide.c9.io/${user}/${workspace}`);
     await page.waitForSelector("#signinForm");
-    await page.type("#inpUsernameEmail", c9Email);
-    await page.type("#inpPassword", c9Password);
+    await page.type("#inpUsernameEmail", email);
+    await page.type("#inpPassword", password);
     await page.click("#btnSignIn");
 
     // Check credentials before proceeding
