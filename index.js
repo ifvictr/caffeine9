@@ -4,7 +4,8 @@ module.exports.status = {
     SUCCESS: 0,
     CREDENTIALS_NOT_FOUND: 1,
     CREDENTIALS_INVALID: 2,
-    WORKSPACE_NOT_FOUND: 3
+    WORKSPACE_NOT_FOUND: 3,
+    WORKSPACE_INACCESSIBLE: 4
 };
 
 module.exports.wake = async (user, workspace) => {
@@ -19,7 +20,7 @@ module.exports.wake = async (user, workspace) => {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
 
-    // Attempting to access the IDE will redirect to a login page
+    // Will redirect to the login page
     await page.goto(`https://ide.c9.io/${user}/${workspace}`);
     await page.waitForSelector("#signinForm");
     await page.type("#inpUsernameEmail", email);
@@ -27,10 +28,10 @@ module.exports.wake = async (user, workspace) => {
     await page.click("#btnSignIn");
 
     try {
-        await page.waitForNavigation({waitUntil: "networkidle0"});
+        await page.waitForNavigation({waitUntil: "networkidle0", timeout: 5000});
     }
     catch(e) {
-        // Login failed and no navigation took place, handle in next section
+        // Login failed and no navigation took place, will be handled in `hasInvalidCredentials`
     }
 
     // Check credentials before proceeding
@@ -45,12 +46,21 @@ module.exports.wake = async (user, workspace) => {
         return this.status.WORKSPACE_NOT_FOUND;
     }
 
-    // If workspace is in hiberation, wait until the restore screen is gone
+    try {
+        // Matches "Unable" in the "Unable to access your workspace" modal heading
+        await page.$eval(".bk-window h3", node => node.innerText.match("Unable"));
+        return this.status.WORKSPACE_INACCESSIBLE;
+    }
+    catch(e) {
+        // Workspace is accessible
+    }
+
+    // If the workspace is in hiberation, wait until the restore overlay is gone.
     try {
         await page.waitForSelector("#c9_ide_restore", {hidden: true, timeout: 60000});
     }
     catch(e) {
-        // Should be ready after 60 seconds. If it still isn't, then it's probably a large project, which takes awhile.
+        // The restore overlay is still visible, so it's most likely a large project. We'll assume it's ready at this point.
     }
 
     await browser.close();

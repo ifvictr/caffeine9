@@ -39,6 +39,9 @@ const spinner = ora({
         case status.WORKSPACE_NOT_FOUND:
             spinner.fail("Couldn't seem to find that workspace.");
             break;
+        case status.WORKSPACE_INACCESSIBLE:
+            spinner.fail("Couldn't access that workspace.");
+            break;
     }
     process.exit(result);
 })();
