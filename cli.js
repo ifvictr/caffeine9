@@ -24,7 +24,7 @@ const spinner = ora({
 
 (async () => {
     const result = await caffeine9.wake(user, workspace);
-    const status = caffeine9.status;
+    const {status} = caffeine9;
 
     switch(result) {
         case status.SUCCESS:

@@ -26,13 +26,18 @@ module.exports.wake = async (user, workspace) => {
     await page.type("#inpPassword", password);
     await page.click("#btnSignIn");
 
+    try {
+        await page.waitForNavigation({waitUntil: "networkidle0"});
+    }
+    catch(e) {
+        // Login failed and no navigation took place, handle in next section
+    }
+
     // Check credentials before proceeding
     const hasInvalidCredentials = await page.$(".errorSignin");
     if(hasInvalidCredentials) {
         return this.status.CREDENTIALS_INVALID;
     }
-
-    await page.waitForNavigation({waitUntil: "networkidle0"});
 
     // Make sure the workspace exists
     const isNonexistentWorkspace = await page.$(".error404");
@@ -41,10 +46,13 @@ module.exports.wake = async (user, workspace) => {
     }
 
     // If workspace is in hiberation, wait until the restore screen is gone
-    await page.waitForSelector("#c9_ide_restore", {hidden: true});
+    try {
+        await page.waitForSelector("#c9_ide_restore", {hidden: true, timeout: 60000});
+    }
+    catch(e) {
+        // Should be ready after 60 seconds. If it still isn't, then it's probably a large project, which takes awhile.
+    }
 
-    // DEBUG: Check workspace loading progress
-    // await page.screenshot({path: `screenshots/${Date.now()}.png`});
     await browser.close();
     return this.status.SUCCESS;
 };
