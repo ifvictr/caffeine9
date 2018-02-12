@@ -1,6 +1,6 @@
 const puppeteer = require("puppeteer");
 
-module.exports.status = {
+exports.status = {
     SUCCESS: 0,
     CREDENTIALS_NOT_FOUND: 1,
     CREDENTIALS_INVALID: 2,
@@ -8,7 +8,7 @@ module.exports.status = {
     WORKSPACE_INACCESSIBLE: 4
 };
 
-module.exports.wake = async (user, workspace) => {
+exports.wake = async (user, workspace) => {
     const email = process.env.C9_EMAIL;
     const password = process.env.C9_PASSWORD;
     if(!email || !password) {
