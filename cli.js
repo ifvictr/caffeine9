@@ -2,7 +2,7 @@
 
 const program = require("commander");
 const ora = require("ora");
-const caffeine9 = require("./");
+const {status, wake} = require(".");
 
 program
     .version("1.0.0")
@@ -23,9 +23,7 @@ const spinner = ora({
 }).start();
 
 (async () => {
-    const {status, wake} = caffeine9;
     const result = await wake(user, workspace);
-
     switch(result) {
         case status.SUCCESS:
             spinner.succeed(`Successfully woke up workspace ${user}/${workspace}!`);
