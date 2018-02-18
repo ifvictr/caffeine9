@@ -34,21 +34,19 @@ exports.wake = async (user, workspace) => {
         // Login failed and no navigation took place, will be handled in `hasInvalidCredentials`
     }
 
-    // Check credentials before proceeding
     const hasInvalidCredentials = await page.$(".errorSignin");
     if(hasInvalidCredentials) {
         return this.status.CREDENTIALS_INVALID;
     }
 
-    // Make sure the workspace exists
     const isNonexistentWorkspace = await page.$(".error404");
     if(isNonexistentWorkspace) {
         return this.status.WORKSPACE_NOT_FOUND;
     }
 
     try {
-        // Matches "Unable" in the "Unable to access your workspace" modal heading
-        await page.$eval(".bk-window h3", node => node.innerText.match("Unable"));
+        // Searches for "Unable" in the "Unable to access your workspace" modal heading
+        await page.$eval(".bk-window h3", node => node.innerText.includes("Unable"));
         return this.status.WORKSPACE_INACCESSIBLE;
     }
     catch(e) {
