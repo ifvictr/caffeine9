@@ -28,7 +28,7 @@ exports.wake = async (user, workspace) => {
     await page.click("#btnSignIn");
 
     try {
-        await page.waitForNavigation({waitUntil: "networkidle0", timeout: 5000});
+        await page.waitForNavigation({ waitUntil: "networkidle0", timeout: 5000 });
     }
     catch(e) {
         // Login failed and no navigation took place, will be handled in `hasInvalidCredentials`
@@ -55,7 +55,7 @@ exports.wake = async (user, workspace) => {
 
     // If the workspace is in hiberation, wait until the restore overlay is gone.
     try {
-        await page.waitForSelector("#c9_ide_restore", {hidden: true, timeout: 60000});
+        await page.waitForSelector("#c9_ide_restore", { hidden: true, timeout: 60000 });
     }
     catch(e) {
         // The restore overlay is still visible, so it's most likely a large project. We'll assume it's ready at this point.
