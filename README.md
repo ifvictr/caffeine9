@@ -5,11 +5,11 @@ Keep your Cloud9 workspaces running without hot workspaces.
 ## Installation
 
 ```
-# Through npm
+# Use npm…
 npm install -g caffeine9
 
-# Through Yarn
-yarn add global caffeine9
+# …or Yarn
+yarn global add caffeine9
 ```
 
 ## Usage
@@ -19,13 +19,12 @@ Usage: cf9 [options]
 
 Keep your Cloud9 workspaces running without hot workspaces.
 
-
 Options:
 
--V, --version            output the version number
--u, --user [value]       The user the workspace is hosted under
--w, --workspace [value]  The target workspace's name
--h, --help               output usage information
+  -V, --version            output the version number
+  -u, --user [value]       The user the workspace is hosted under
+  -w, --workspace [value]  The target workspace's name
+  -h, --help               output usage information
 ```
 
 ### Attempts to wake up workspace `john/hello-world`
