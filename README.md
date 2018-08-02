@@ -6,10 +6,10 @@ Keep your Cloud9 workspaces running without hot workspaces.
 
 ```
 # Use npm…
-npm install -g caffeine9
+$ npm install -g caffeine9
 
 # …or Yarn
-yarn global add caffeine9
+$ yarn global add caffeine9
 ```
 
 ## Usage
